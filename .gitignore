@@ -2,3 +2,4 @@ node_modules
 *.txt
 *.cf.json
 demo.js
+*.sql
