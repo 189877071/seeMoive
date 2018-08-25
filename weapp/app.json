@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/create/create",
+    "pages/mi/mi",
+    "pages/home/home",
+    "pages/label/label",
+    "pages/history/history",
+    "pages/jieshao/jieshao",
+    "pages/search/search"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#010101",
+    "navigationBarTitleText": "一起看电影",
+    "navigationBarTextStyle": "#fff",
+    "backgroundColor": "#010101",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "backgroundColor": "#0a0603",
+    "color": "#fff",
+    "selectedColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/image/index.png",
+        "selectedIconPath": "assets/image/index-select.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "创建房间",
+        "iconPath": "assets/image/create.png",
+        "selectedIconPath": "assets/image/create-select.png"
+      },
+      {
+        "pagePath": "pages/mi/mi",
+        "text": "我",
+        "iconPath": "assets/image/mi.png",
+        "selectedIconPath": "assets/image/mi-select.png"
+      }
+    ]
+  }
+}

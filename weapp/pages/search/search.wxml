@@ -1,0 +1,22 @@
+<!--pages/search/search.wxml-->
+<view class='top-box'>
+  <view class='search'>
+    <image src='../../assets/image/search.png'></image>
+    <input placeholder="搜索视频关键字" placeholder-class='placeholder' confirm-type="search"></input>
+  </view>
+  <view class='clear'>清空</view>
+</view>
+
+<scroll-view class='movie-list' scroll-y>
+  <navigator wx:for="{{30}}" wx:key="{{index}}" url='/pages/home/home' class='movie-item'>
+    <view class='photo'>
+      <image class='movie-photo-x' src='../../assets/image/dy-x.jpg'></image>
+      <view class='time'>125:30</view>
+    </view>
+
+    <view class='movie-jjie'>
+      <view class='movie-name'>西红柿首富</view>
+      <view class='movie-laiyuan'>Gakki-内 提供</view>
+    </view>
+  </navigator> 
+</scroll-view>

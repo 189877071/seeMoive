@@ -1,0 +1,22 @@
+<!--pages/label/label.wxml-->
+<view class='hint'>
+  <view class='title'>我的标签</view>
+  <view class='declaration'>选择最多5个标签来形容自己</view>
+</view>
+
+<view class='add-label-box'>
+  <view class='clear'>
+    <image src='../../assets/image/clear.png'></image>
+  </view>
+  <input class='add-label' placeholder-class='placeholder' placeholder="输入你想添加的标签"></input>
+  <view class='btn'>确定</view>
+</view>
+
+<view class='list'>
+  <view wx:for="{{25}}" wx:key="{{index}}" class="{{index === 2 ? 'selected': ''}}">
+    <image wx:if="{{index === 2}}" src='../../assets/image/clear.png'></image>
+    <text>女装大佬</text>
+  </view>
+</view>
+
+<view class='save'>保存</view>

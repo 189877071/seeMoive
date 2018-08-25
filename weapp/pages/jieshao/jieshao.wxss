@@ -1,0 +1,65 @@
+/* pages/jieshao/jieshao.wxss */
+page {
+  background: #fff;
+}
+.box {
+  margin: 0 30rpx;
+  box-shadow: 0 0 50rpx rgba(0,0,0,.8);
+}
+.item-box {
+  display: flex;
+  font-size: 28rpx;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.title {
+  width: 170rpx;
+  padding-right: 20rpx;
+  text-align: right;
+  line-height: 80rpx;
+}
+.content {
+  word-break: break-word;
+  border-left: 1px solid #ccc;
+  flex: 1;
+  line-height: 40rpx;
+  padding: 20rpx;
+  color: #555;
+  font-size: 24rpx;
+}
+
+.copy {
+  margin-left: 20rpx;
+  background: linear-gradient(to right, #7d77e3 0%, #9d6fd7 100%);
+  color: #fff;
+  display: inline-block;
+  font-size: 22rpx;
+  padding: 0 15rpx;
+  border-radius: 10rpx;
+}
+
+.head-box {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 50rpx auto 0;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 50rpx rgba(0,0,0,.8);
+}
+.head-box image {
+  width: 200rpx;
+  height: 200rpx;
+}
+.border-top {
+  border-top: 1px solid #ccc;
+}
+
+.zpjs {
+  height: 120rpx;
+  line-height: 120rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: #333;
+}

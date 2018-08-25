@@ -1,0 +1,54 @@
+/* pages/history/history.wxss */
+page {
+  background: #fff;
+}
+.item-box {
+  padding: 31rpx;
+  border-bottom: 1px solid #ececec;
+  display: flex;
+}
+
+.item-box image {
+  width: 152rpx;
+  height: 152rpx;
+  border-radius: 20rpx;
+}
+
+.item-right {
+  flex: 1;
+  padding-left: 28rpx;
+}
+
+.title {
+  height: 81rpx;
+  font-size: 28rpx;
+  color: #4f4f4f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users {
+  height: 38rpx;
+  display: flex;
+  align-items: center;
+}
+
+.users image {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 50%;
+}
+.users .name, .users .num {
+  font-size: 22rpx;
+  color: #4f4f4f;
+  padding-left: 10rpx;
+}
+.users .num {
+  color: #a6a6a6;
+  padding-left: 22rpx;
+}
+.deleted, .deleted image{
+  width: 28rpx;
+  height: 28rpx;
+}

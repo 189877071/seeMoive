@@ -1,0 +1,27 @@
+<!--pages/mi/mi.wxml-->
+<view class='top-box'>
+   <view class='head-box'>
+    <image src='../../assets/image/head.jpg'></image>
+   </view>
+   <view class='top-right'>
+    <view class='name-box'>
+      <text>李林</text>
+      <navigator url='/pages/label/label' class='editor-icon' >
+        <image src='../../assets/image/edit.png'></image>
+      </navigator>
+    </view>
+    <view class='label'>标签:老司机/暖男/抠脚大汉/小哥哥…</view>
+   </view>
+</view>
+
+<navigator url='/pages/history/history' class='list'>
+  <image class='img-left' src='../../assets/image/time.png'></image>
+  <text>最近访问</text>
+  <image class='img-right' src='../../assets/image/jt.png'></image>
+</navigator>
+
+<navigator url='/pages/jieshao/jieshao' class='list'>
+  <image class='img-left' src='../../assets/image/gywm.png'></image>
+  <text>关于作品</text>
+  <image class='img-right' src='../../assets/image/jt.png'></image>
+</navigator>

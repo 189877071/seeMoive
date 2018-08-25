@@ -1,0 +1,19 @@
+<!--pages/history/history.wxml-->
+<scroll-view scroll-y>
+  <view wx:for="{{30}}" wx:key="{{index}}" class='item-box'>
+    <image src='../../assets/image/h1.jpg'></image>
+    <view class='item-right'>
+      <view class='title'>
+        <text>烧脑悬疑电影专场</text>
+        <view class='deleted'>
+          <image src='../../assets/image/deleted.png'></image>
+        </view>
+      </view>
+      <view class='users'>
+        <image src='../../assets/image/head.jpg'></image>
+        <text class='name'>小确丧</text>
+        <text class='num'>30人在看</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>

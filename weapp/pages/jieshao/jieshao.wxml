@@ -1,0 +1,23 @@
+<view class='head-box'>
+  <image src='../../assets/image/mi.jpg'></image>
+</view>
+
+<view class='zpjs'>联系方式</view>
+
+<view class='box'>
+  <view class='item-box border-top'>
+    <view class='title'>作者:</view>
+    <view class='content'>李林</view>
+  </view>
+  <view class='item-box'>
+    <view class='title'>邮箱:</view>
+    <view class='content'>189877071@qq.com</view>
+  </view>
+  <view class='item-box'>
+    <view class='title'>github地址:</view>
+    <view class='content'>
+      <text>https://github.com/189877071/webckat-moblie</text>
+      <view class='copy'>复制</view>
+    </view>
+  </view>
+</view>

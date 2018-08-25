@@ -1,0 +1,100 @@
+page {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+.top-box {
+  border-bottom: 2px solid #000004;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.8);
+}
+.search {
+  height: 66rpx;
+  width: 696rpx;
+  margin: 29rpx auto;
+  background: #342d4f;
+  border-radius: 33rpx;
+  display: flex;
+  color: #827edf;box-sizing: border-box;
+  padding: 0 30rpx;
+  align-items: center;
+  font-size: 28rpx;
+}
+
+.search image {
+  width: 27rpx;
+  height: 27rpx;
+  margin-right: 12rpx;
+}
+
+.nav {
+  display: flex;
+  height: 84rpx;
+}
+.nav .item {
+  flex: 1;
+  font-size: 28rpx;
+  color: #4e4d51;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav .item.selected text {
+  color: #7871da;
+  height: 76rpx;
+  line-height: 76rpx;
+  border-top: 4rpx solid rgba(0,0,0,0);
+  border-bottom: 4rpx solid #7e7bcb;
+}
+
+.movie-list {
+  flex: 1;
+  overflow: hidden;
+  background: rgba(0,0,0,.8);
+}
+
+.movie-item {
+  display: flex;
+  padding: 39rpx 30rpx 30rpx 30rpx;
+  border-bottom: 1px solid #1b1b1b;
+}
+
+.photo, .movie-photo-x {
+  width: 209rpx;
+  height: 119rpx;
+}
+
+.photo {
+  overflow: hidden;
+  border-radius: 12rpx;
+  position: relative;
+}
+
+.photo .time {
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
+  color: #fff;
+  font-size: 18rpx;
+}
+
+
+
+.movie-jjie {
+  flex: 1;
+  padding-left: 32rpx;
+}
+
+.movie-name {
+  height: 61rpx;
+  line-height: 61rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.movie-laiyuan {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #5d5b67;
+  font-size: 24rpx;
+}
