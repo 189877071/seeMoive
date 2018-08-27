@@ -1,0 +1,41 @@
+/* components/MovieItem/index.wxss */
+
+
+.movie-item {
+  display: flex;
+  padding: 39rpx 30rpx 30rpx 30rpx;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, .1);
+}
+.photo, .movie-photo-x {
+  width: 209rpx;
+  height: 119rpx;
+}
+.photo {
+  overflow: hidden;
+  border-radius: 12rpx;
+  position: relative;
+}
+.photo .time {
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
+  color: #fff;
+  font-size: 18rpx;
+}
+.movie-jjie {
+  flex: 1;
+  padding-left: 32rpx;
+}
+.movie-name {
+  height: 61rpx;
+  line-height: 61rpx;
+  color: #0d0d11;
+  font-size: 28rpx;
+}
+.movie-laiyuan {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #5d5b67;
+  font-size: 24rpx;
+}

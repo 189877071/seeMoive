@@ -1,48 +1,21 @@
 <!--pages/create/create.wxml-->
-<view class='top-box'>
+<view class='shadow black'>
   <navigator url='/pages/search/search' class='search'>
     <image src='../../assets/image/search.png'></image>
     <view>搜索视频关键字</view>
   </navigator>
 
   <view class='nav'>
-    <view class='item selected'>
-      <text>最新</text>
-    </view>
-    <view class='item'>
-      <text>恐怖</text>
-    </view>
-    <view class='item'>
-      <text>生活</text>
-    </view>
-    <view class='item'>
-      <text>搞笑</text>
-    </view>
-    <view class='item'>
-      <text>动画</text>
-    </view>
-    <view class='item'>
-      <text>电影</text>
-    </view>
-    <view class='item'>
-      <text>艺术</text>
-    </view>
-    <view class='item'>
-      <text>剧集</text>
+    <view 
+      wx:for="{{navs}}" 
+      wx:key="{{index}}" 
+      id="{{item.id}}" 
+      class="item {{index === navSelected ? 'selected' : ''}}">
+      <text>{{item.name}}</text>
     </view>
   </view>
 </view>
 
 <scroll-view class='movie-list' scroll-y>
-  <navigator wx:for="{{30}}" wx:key="{{index}}" url='/pages/home/home' class='movie-item'>
-    <view class='photo'>
-      <image class='movie-photo-x' src='../../assets/image/dy-x.jpg'></image>
-      <view class='time'>125:30</view>
-    </view>
-
-    <view class='movie-jjie'>
-      <view class='movie-name'>西红柿首富</view>
-      <view class='movie-laiyuan'>Gakki-内 提供</view>
-    </view>
-  </navigator> 
+  <movie-item wx:for="{{10}}" wx:key="{{index}}"></movie-item>
 </scroll-view>

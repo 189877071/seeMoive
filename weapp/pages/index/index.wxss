@@ -1,13 +1,16 @@
 /**index.wxss**/
+@import '../../assets/common.wxss';
+
 page {
-  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .nav-box{
-  width: 100%;
   display: flex;
-  height: 134rpx;
-  line-height: 134rpx;
+  height: 104rpx;
+  line-height: 104rpx;
 }
 .nav-item{
   display: inline-block;
@@ -20,98 +23,8 @@ page {
   color: #fff;
 }
 
-.list-box {
-  height: 552rpx;
-  border-radius: 15rpx;
+.scroll {
+  flex: 1;
   overflow: hidden;
 }
 
-.list-top {
-  height: 134rpx;
-  background: rgba(30,27,44, .6);
-  display: flex;
-}
-.list-top .head {
-  display: flex;
-  width: 121rpx;
-  align-items: center;
-  justify-content: flex-end;
-}
-.list-top .head image{
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-}
-.list-top .title-box {
-  flex: 1;
-  margin-left: 10rpx;
-  margin-top: 7rpx;
-}
-.title-top {
-  height: 64rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.title-top .title {
-  color: #fff;
-  font-size: 26rpx;
-}
-.title-top .title-right image {
-  height: 24rpx;
-  width: 29rpx;
-}
-.title-top .title-right {
-  margin-right: 22rpx;
-  display: flex;
-  align-items: center;
-}
-.title-top .title-right text {
-  padding-left: 8rpx;
-  color: #ff797a;
-  font-size: 26rpx;
-}
-.list-top .label-list {
-  display: flex;
-  height: 37rpx;
-}
-.list-top .label-list view {
-  font-size: 20rpx;
-  line-height: 37rpx;
-  color: #9998a0;
-  padding: 0 10rpx;
-  margin-right: 5rpx;
-  background: #343240;
-  border-radius: 37rpx;
-}
-.film-cover {
-  position: relative;
-}
-.film-cover image {
-  width: 100%;
-  height: 418rpx;
-}
-.film-title {
-  position: absolute;
-  left: 22rpx;
-  top: 0;
-  height: 80rpx;
-  line-height: 80rpx;
-  color: #fff;
-  text-shadow: 0 0 5rpx rgba(0,0,0,1);
-  font-size: 26rpx;
-}
-.yiqikan {
-  position: absolute;
-  right: 20rpx;
-  bottom: 32rpx;
-  width: 164rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  text-align: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 26rpx;
-  background: linear-gradient(to right, #7d77e3 0%, #9d6fd7 100%);
-  border-radius: 25rpx;
-}

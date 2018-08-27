@@ -1,5 +1,5 @@
 <!--pages/mi/mi.wxml-->
-<view class='top-box'>
+<view class='top-box shadow black'>
    <view class='head-box'>
     <image src='../../assets/image/head.jpg'></image>
    </view>

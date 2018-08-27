@@ -4,7 +4,7 @@ page {
 }
 .box {
   margin: 0 30rpx;
-  box-shadow: 0 0 50rpx rgba(0,0,0,.8);
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, .6);
 }
 .item-box {
   display: flex;
@@ -46,7 +46,7 @@ page {
   border: 1px solid #ccc;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 50rpx rgba(0,0,0,.8);
+  box-shadow: 0 0 30rpx rgba(0,0,0,.6);
 }
 .head-box image {
   width: 200rpx;

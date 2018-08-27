@@ -1,2 +1,6 @@
 {
+  "usingComponents": {
+    "home-card": "../../components/HomeCard/HomeCard",
+    "my-login": "../../components/Login/index"
+  }
 }

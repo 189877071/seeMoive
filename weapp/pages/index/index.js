@@ -1,5 +1,15 @@
 //index.js
-const io = require('../../assets/weapp.socket.io.js');
+// const io = require('../../assets/weapp.socket.io.js');
+// const socket = io('wss://socket.jsonhappy.com');
+// socket.on('message', data => {
+//   console.log(data);
+// });
+// 在几个页面中需要判断是否登录呢？
+// 首先 index，create， 页面说不需要判断登录的
+// home，label页面需要判断登录
+
+
+const app = getApp();
 
 Page({
   data: {
@@ -37,15 +47,11 @@ Page({
         name: '剧集'
       }
     ],
-    navSelected: 0
+    navSelected: 0,
+    login: true
   },
 
   onLoad: function() {
-    // const socket = io('wss://socket.jsonhappy.com');
-
-    // socket.on('message', data => {
-    //   console.log(data);
-    // });
-
+    
   }
 })

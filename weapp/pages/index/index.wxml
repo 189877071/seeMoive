@@ -1,34 +1,16 @@
-<view class="nav-box">
-  <view wx:for="{{navs}}" wx:key="{{index}}" id="{{item.id}}" class="nav-item {{index === navSelected ? 'selected' : ''}}">{{item.name}}</view>
-</view>
-
-<view class='list-box'>
-  <view class='list-top'>
-    <view class='head'>
-      <image mode='aspectFit' src='../../assets/image/head.jpg'></image>
-    </view>
-
-    <view class='title-box'>
-      <view class='title-top'>
-        <view class='title'>我是你家丢的钱吗</view>
-        <view class='title-right'>
-          <image src='../../assets/image/xin.png'></image>
-          <text>10</text>
-        </view>
-      </view>
-      <view class='label-list'>
-        <view>戏精</view>
-        <view>腹肌控</view>
-        <view>声控</view>
-        <view>中二病</view>
-        <view>死宅</view>
-      </view>
-    </view>
-  </view>
-  <view class='film-cover'>
-    <image mode='' src='../../assets/image/1.jpg'></image>
-    <view class='film-title'>正在观看:超平和busters：未闻花名-第五话</view>
-    <view class='yiqikan'>一起看</view>
+<view class="nav-box shadow black">
+  <view 
+    wx:for="{{navs}}" 
+    wx:key="{{index}}" 
+    id="{{item.id}}" 
+    class="nav-item {{index === navSelected ? 'selected' : ''}}"
+    >
+    {{item.name}}
   </view>
 </view>
 
+<scroll-view scroll-y class='scroll'>
+  <view style='height: 30rpx;'></view>
+  <home-card wx:for="{{3}}" wx:key="{{index}}"></home-card>
+</scroll-view>
+<my-login wx:if="{{login}}"></my-login>

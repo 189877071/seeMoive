@@ -1,10 +1,11 @@
+@import '../../assets/common.wxss';
 .top-box {
   height: 146rpx;
   display: flex;
   padding-top: 32rpx;
   padding-bottom: 20rpx;
-  border-bottom: 1px solid #1f1b30;
 }
+
 .head-box {
   width: 178rpx;
   display: flex;
@@ -48,13 +49,13 @@
   display: flex;
   align-items: center;
   padding: 0 33rpx;
-  border-bottom: 1px solid #1f1b30;
-  background: rgba(0,0,0,.8);
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, .1);
 }
 
 .list text {
   font-size: 24rpx;
-  color: #fff;
+  color: #343240;
   flex: 1;
   text-indent: 27rpx;
 }

@@ -1,0 +1,13 @@
+<!--components/MovieItem/index.wxml-->
+
+<navigator url='/pages/home/home' class='movie-item'>
+  <view class='photo'>
+    <image class='movie-photo-x' src='../../assets/image/dy-x.jpg'></image>
+    <view class='time'>125:30</view>
+  </view>
+
+  <view class='movie-jjie'>
+    <view class='movie-name'>西红柿首富</view>
+    <view class='movie-laiyuan'>Gakki-内 提供</view>
+  </view>
+</navigator> 

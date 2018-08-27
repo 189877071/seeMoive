@@ -1,23 +1,25 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/create/create",
     "pages/mi/mi",
+    "pages/create/create",
     "pages/home/home",
     "pages/label/label",
     "pages/history/history",
     "pages/jieshao/jieshao",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/userinfor/userinfor",
+    "components/Login/index"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#010101",
+    "navigationBarBackgroundColor": "#343240",
     "navigationBarTitleText": "一起看电影",
     "navigationBarTextStyle": "#fff",
-    "backgroundColor": "#010101",
+    "backgroundColor": "#343240",
     "backgroundTextStyle": "light"
   },
   "tabBar": {
-    "backgroundColor": "#0a0603",
+    "backgroundColor": "#343240",
     "color": "#fff",
     "selectedColor": "#fff",
     "list": [
