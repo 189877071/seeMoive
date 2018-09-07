@@ -1,2 +1,98 @@
 <!--pages/home/home.wxml-->
-<video src='https://movie-jsonhappy.oss-cn-beijing.aliyuncs.com/movie/video/demo.mp4?OSSAccessKeyId=LTAIwB2w0DcnO8w8&Expires=1535640038&Signature=4MnuwlAaxynOJ%2FETkC9cI1WDVa4%3D'></video>
+<video class='video' poster='../../assets/image/1.jpg' controls='{{false}}' enable-progress-gesture='{{false}}' show-center-play-btn='{{false}}' src='{{src}}' id='myVideo' />
+
+<scroll-view class='message' scroll-y scroll-into-view='bottom'>
+  
+  <view class='reminder'><view class='reminder-c'>“啦啦啦哈哈哈”进入房间~</view></view>
+
+  <view class='message-list'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list mi'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <text class='message-content'>狗子都跑出来了。</text>
+    </view>
+  </view>
+
+  <view class='message-list mi'>
+    <image class='user-photo' src='../../assets/image/head.jpg' />
+    <view class='mjt'></view>
+    <view class='message-content-box'>
+      <text class='user-name'>摸摸摸雨。</text>
+      <view class='yy-box'><image class='yy' src='../../assets/image/miyy-3.png'></image> <text>语音：播放</text></view>
+    </view>
+  </view>
+
+  <view id='bottom' style='height: 10rpx;'></view>
+</scroll-view>
+
+<view class='editor-box' style='position: {{position}}; bottom: {{bottom}}px; left: 0;'>
+  
+  <view wx:if='{{!voice}}' class='elb'>
+    <button class='el' data-show='0' bindtap='showVoice'>
+      <image class='img' src='../../assets/image/ly.png' />
+    </button>
+    <input 
+      adjust-position='{{false}}' 
+      placeholder='为表诚意，亲手打字~' 
+      placeholder-class='pinput'
+      bindfocus='inputFocus' 
+      bindblur='inputBlur'/>
+  </view>
+
+  <view wx:else class='elb'>
+    <button class='el' data-show='1' bindtap='showVoice'>
+      <image class='img' src='../../assets/image/jp.png' />
+    </button>
+    <view class='azsh'>按住 说话</view>
+  </view>
+
+  <view class='er'>
+    <image class='img' src='../../assets/image/send.png' />
+  </view>
+</view>

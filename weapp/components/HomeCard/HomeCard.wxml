@@ -10,7 +10,7 @@ userphoto
 "爱健身/暖男/失眠星人/声控"
 -->
 
-<view class='list-box shadow'>
+<navigator  url='/pages/home/home?id=11' class='list-box shadow'>
   <!-- 头部 -->
   <view class='list-top black'>
     <view class='head'>
@@ -37,4 +37,4 @@ userphoto
     <view class='yiqikan'>一起看</view>
   </view>
 
-</view>
+</navigator>

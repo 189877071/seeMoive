@@ -47,7 +47,9 @@ Page({
   },
 
   init: function() {
-
+    wx.navigateTo({
+      url: '/pages/home/home?id=11',
+    })
     const {
       login,
       infor: {

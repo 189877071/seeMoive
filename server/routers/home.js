@@ -58,7 +58,7 @@ async function getHomeInfor(page = 0, classify = false) {
 
 module.exports = async (ctx) => {
 
-    let { page, classify } = ctx.request.body;
+    let { page, classify, id, options } = ctx.request.body;
 
     if (ctx.path === '/api/login' || ctx.path === '/api/signin') {
         const data = await getHomeInfor();
@@ -70,12 +70,18 @@ module.exports = async (ctx) => {
         return;
     }
 
-    const data = await getHomeInfor(page, classify);
+    if (!options) {
+        const data = await getHomeInfor(page, classify);
 
-    if (!data) {
-        ctx.oerror();
+        if (!data) {
+            ctx.oerror();
+            return;
+        }
+
+        ctx.body = { ...data };
         return;
     }
+
     
-    ctx.body = { ...data };
+
 }

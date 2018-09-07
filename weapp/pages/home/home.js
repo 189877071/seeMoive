@@ -5,62 +5,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bg: false
+    src: 'https://movie-jsonhappy.oss-cn-beijing.aliyuncs.com/movie/video/demo.mp4?OSSAccessKeyId=LTAIwB2w0DcnO8w8&Expires=1536670193&Signature=Ta02EGaHydyDm%2FGt8rWJZb%2F04d0%3D',
+    bottom: 0,
+    position: 'static',
+    voice: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({ bg: true });
+    console.log(options);
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  binderror() {
+    wx.showToast({
+      title: '播放出错',
+      icon: 'none'
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  inputFocus(event) {
+    this.setData({
+      bottom: event.detail.height,
+      position: 'fixed'
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  inputBlur() {
+    this.setData({
+      bottom: 0,
+      position: 'static'
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  // 切换输入/语音
+  showVoice(event) {
+    this.setData({
+      voice: event.currentTarget.dataset.show == 0
+    })
   }
+  
 })
