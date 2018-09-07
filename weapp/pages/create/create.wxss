@@ -51,3 +51,10 @@ page {
   flex: 1;
   overflow: hidden;
 }
+
+.bottom {
+  line-height: 60rpx;
+  font-size: 22rpx;
+  text-align: center;
+  color: #888;
+}

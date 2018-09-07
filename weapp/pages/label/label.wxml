@@ -1,22 +1,38 @@
 <!--pages/label/label.wxml-->
+<wxs module='filter'>
+  module.exports = {
+    isLabels: function(item, labels) {
+      return labels.indexOf(item) > -1;
+    }
+  }
+</wxs>
+
 <view class='hint'>
   <view class='title'>我的标签</view>
   <view class='declaration'>选择最多5个标签来形容自己</view>
 </view>
 
 <view class='add-label-box'>
-  <view class='clear'>
+  <view class='clear' bindtap='createValue'>
     <image src='../../assets/image/clear.png'></image>
   </view>
-  <input class='add-label' placeholder-class='placeholder' placeholder="输入你想添加的标签"></input>
-  <view class='btn'>确定</view>
+  <input 
+    class='add-label' 
+    maxlength='6' 
+    placeholder-class='placeholder' 
+    placeholder="输入你想添加的标签" 
+    id="addInput"
+    value='{{inputValue}}'
+    bindinput='bindKeyInput'/>
+  <view class='btn' bindtap='addList'>确定</view>
 </view>
 
 <view class='list'>
-  <view wx:for="{{25}}" wx:key="{{index}}" class="{{index === 2 ? 'selected': ''}}">
-    <image wx:if="{{index === 2}}" src='../../assets/image/clear.png'></image>
-    <text>女装大佬</text>
+  <!-- selected -->
+  <view wx:for="{{list}}" wx:key="{{index}}" class="{{filter.isLabels(item, labels) ? 'selected': ''}}" data-item='{{item}}' bindtap='addLabel'>
+    <image wx:if="{{filter.isLabels(item, labels)}}" src='../../assets/image/clear.png'></image>
+    <text>{{item}}</text>
   </view>
 </view>
 
-<view class='save'>保存</view>
+<view class='save' bindtap='save'>保存</view>

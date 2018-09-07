@@ -1,16 +1,28 @@
-<view class="nav-box shadow black">
+<template name='nav'>
   <view 
-    wx:for="{{navs}}" 
+    wx:for="{{list}}" 
     wx:key="{{index}}" 
     id="{{item.id}}" 
-    class="nav-item {{index === navSelected ? 'selected' : ''}}"
-    >
+    class="nav-item {{item.id === navSelected ? 'selected' : ''}}"
+    bindtap='toggleNav'>
     {{item.name}}
   </view>
+</template>
+
+<view class="nav-box shadow black">
+  <template is='nav' data='{{...navs}}'></template>
 </view>
 
-<scroll-view scroll-y class='scroll'>
+<view wx:if='{{navPosition}}' class="nav-box shadow black position">
+  <template is='nav' data='{{...navs}}'></template>
+</view>
+
+<view class='scroll'>
   <view style='height: 30rpx;'></view>
-  <home-card wx:for="{{3}}" wx:key="{{index}}"></home-card>
-</scroll-view>
-<my-login wx:if="{{login}}"></my-login>
+  <home-card wx:for="{{homes}}" wx:key="{{index}}" homeinfor="{{item}}"></home-card>
+</view>
+
+<view class='bottom' wx:if='{{!isFinish}}'>正在加载</view>
+
+<my-login wx:if="{{!login}}"></my-login>
+<my-load wx:if="{{!load}}"></my-load>

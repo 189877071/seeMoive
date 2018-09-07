@@ -1,11 +1,10 @@
-// components/MovieItem/index.js
+// components/Load/index.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    item: Object,
-    search: Boolean
+
   },
 
   /**

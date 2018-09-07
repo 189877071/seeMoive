@@ -2,9 +2,7 @@
 @import '../../assets/common.wxss';
 
 page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  
 }
 
 .nav-box{
@@ -12,6 +10,15 @@ page {
   height: 104rpx;
   line-height: 104rpx;
 }
+
+.position {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
 .nav-item{
   display: inline-block;
   font-size: 28rpx;
@@ -23,8 +30,6 @@ page {
   color: #fff;
 }
 
-.scroll {
-  flex: 1;
-  overflow: hidden;
-}
+
+
 

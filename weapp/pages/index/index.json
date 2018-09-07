@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "home-card": "../../components/HomeCard/HomeCard",
-    "my-login": "../../components/Login/index"
-  }
+    "my-login": "../../components/Login/index",
+    "my-load": "../../components/Load/index"
+  },
+  "enablePullDownRefresh": true
 }

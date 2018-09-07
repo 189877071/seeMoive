@@ -6,4 +6,5 @@
   <view class='btn-box'>
     <button open-type="getUserInfo" lang="zh_CN" class='btn' bindgetuserinfo="onGotUserInfo">微信登录</button>
   </view>
+  <my-load wx:if="{{send}}"></my-load>
 </view>

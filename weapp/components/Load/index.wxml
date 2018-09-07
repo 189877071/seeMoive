@@ -1,0 +1,4 @@
+<!--components/Load/index.wxml-->
+<view class='box'>
+  <image src='../../assets/image/load.gif'></image>
+</view>

@@ -1,34 +1,40 @@
+<!-- 
+id:"0d4a1669-69b2-46d6-b01b-f3c378c29277"
+movieid:"87d9d737-9654-4bb2-9706-4a3a19f4040d"
+moviename:"僵尸至尊"
+moviephoto:"movie/image/10x.jpg"
+userid:"a6de2eaa-d92c-43b1-8628-faf86afa5c9a"
+userlabel:"内向"
+username:"始海瑶"
+userphoto
+"爱健身/暖男/失眠星人/声控"
+-->
+
 <view class='list-box shadow'>
   <!-- 头部 -->
   <view class='list-top black'>
     <view class='head'>
-      <image mode='aspectFit' src='../../assets/image/head.jpg'></image>
+      <image mode='aspectFit' src='{{homeinfor.userphoto}}'></image>
     </view>
     <view class='title-box'>
       <view class='title-top'>
-        <view class='title'>我是你家丢的钱吗</view>
+        <view class='title'>{{homeinfor.username}}</view>
         <view class='title-right'>
           <image src='../../assets/image/xin.png'></image>
-          <text>10</text>
+          <text>{{homeinfor.praise}}</text>
         </view>
       </view>
       <view class='label-list'>
-        <view>戏精</view>
-        <view>腹肌控</view>
-        <view>声控</view>
-        <view>中二病</view>
-        <view>死宅</view>
+        <view wx:for='{{userlabel}}' wx:key='{{index}}'>{{item}}</view>
       </view>
     </view>
   </view>
 
   <!-- 图片 -->
   <view class='film-cover'>
-    <image mode='' src='../../assets/image/1.jpg'></image>
-    <view class='film-title'>正在观看:超平和busters：未闻花名-第五话</view>
+    <image mode='' src='{{homeinfor.moviephoto}}'></image>
+    <view class='film-title'>正在观看:{{homeinfor.moviename}}</view>
     <view class='yiqikan'>一起看</view>
   </view>
 
 </view>
-
-

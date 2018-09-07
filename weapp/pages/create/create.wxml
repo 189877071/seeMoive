@@ -7,15 +7,19 @@
 
   <view class='nav'>
     <view 
-      wx:for="{{navs}}" 
+      wx:for="{{navs.list}}" 
       wx:key="{{index}}" 
-      id="{{item.id}}" 
-      class="item {{index === navSelected ? 'selected' : ''}}">
+      data-id="{{item.id}}"
+      class="item {{item.id == navs.navSelected ? 'selected' : ''}}"
+      bindtap='toggleNav'>
       <text>{{item.name}}</text>
     </view>
   </view>
 </view>
 
-<scroll-view class='movie-list' scroll-y>
-  <movie-item wx:for="{{10}}" wx:key="{{index}}"></movie-item>
+<scroll-view class='movie-list' scroll-y bindscrolltolower='scrollTolower'>
+  <movie-item wx:for="{{movies}}" item='{{item}}' wx:key="{{index}}"></movie-item>
+  <view class='bottom' wx:if='{{!isFinish}}'>正在加载</view>
 </scroll-view>
+
+<my-load wx:if="{{!load}}"></my-load>

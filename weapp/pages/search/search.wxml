@@ -2,11 +2,19 @@
 <view class='top-box shadow black'>
   <view class='search'>
     <image src='../../assets/image/search.png'></image>
-    <input placeholder="搜索视频关键字" placeholder-class='placeholder' confirm-type="search"></input>
+    <input 
+      placeholder="搜索视频关键字" 
+      placeholder-class='placeholder' 
+      confirm-type="search"
+      bindinput='bindKeyInput'
+      value='{{inputValue}}'
+    />
   </view>
-  <view class='clear'>清空</view>
+  <view class='clear' bindtap='clear'>清空</view>
 </view>
 
-<scroll-view class='movie-list' scroll-y>
-  <movie-item wx:for="{{10}}" wx:key="{{index}}"></movie-item>
+<scroll-view class='movie-list' scroll-y bindscrolltolower='scrollTolower'>
+  <movie-item wx:for="{{movies}}" item='{{item}}' search='{{true}}' wx:key="{{index}}"></movie-item>
+  <view class='nodata' wx:if='{{!movies.length}}'>没有数据</view>
+  <view class='bottom' wx:if='{{!isFinish}}'>正在加载</view>
 </scroll-view>

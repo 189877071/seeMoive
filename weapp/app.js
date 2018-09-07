@@ -1,93 +1,50 @@
-//app.js
-  // "tabBar": {
-    // "backgroundColor": "#0a0603",
-    // "color": "#fff",
-    // "selectedColor": "#fff",
-    // "list": [
-    //   {
-    //     "pagePath": "pages/index/index",
-    //     "text": "首页",
-    //     "iconPath": "assets/image/index.png",
-    //     "selectedIconPath": "assets/image/index-select.png"
-    //   },
-    //   {
-    //     "pagePath": "pages/create/create",
-    //     "text": "创建房间",
-    //     "iconPath": "assets/image/create.png",
-    //     "selectedIconPath": "assets/image/create-select.png"
-    //   },
-    //   {
-    //     "pagePath": "pages/mi/mi",
-    //     "text": "我",
-    //     "iconPath": "assets/image/mi.png",
-    //     "selectedIconPath": "assets/image/mi-select.png"
-    //   }
-    // ]
-  // }
+const {
+  myRequest
+} = require('./utils/util.js');
 
 App({
   onLaunch: function() {
-    // 展示本地存储能力
-    // var logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
+    wx.hideTabBar();
 
-    // 登录
-    // wx.login({
-    //   success: res => {
-    //     console.log(res.code);
-    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
-    //     wx.request({
-    //       url: 'https://socketv2.jsonhappy.com/api/login',
-    //       data: {
-    //         code: res.code
-    //       },
-    //       header: {
-    //         'content-type': 'application/json' // 默认值
-    //       },
-    //       method: "POST"
-    //     });
-    //   }
+    wx.login({
+      success: (res) => {
+        myRequest('/login', {
+          code: res.code
+        }).then(result => {
+          console.log(result);
 
-    // })
+          const {
+            success,
+            classify,
+            homes,
+            count,
+            userinfor
+          } = result;
 
-  },
-
-  // 获取用户信息
-  getSetting() {
-
-    return new Promise(resolve => {
-
-      wx.getSetting({
-
-        success: res => {
-
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-         
-                // 可以将 res 发送给后台解码出 unionId
-                this.globalData.userInfo = res.userInfo
-
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  this.userInfoReadyCallback(res)
-                }
-              }
-            })
+          if (success) {
+            wx.showTabBar();
           }
 
-        }
-        
-      })
+          this.globalData.init = true;
 
+          this.globalData.login = !!success;
+
+          this.globalData.infor = {
+            classify,
+            homes,
+            count,
+            userinfor
+          }
+
+          if (this.appinitcallback) {
+            this.appinitcallback();
+          }
+        })
+      }
     })
-
   },
 
   globalData: {
-    userInfo: null
+    init: false,
   }
 })

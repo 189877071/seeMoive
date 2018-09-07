@@ -1,13 +1,34 @@
-<!--components/MovieItem/index.wxml-->
+<wxs module='filter'>
+  module.exports = {
+    time: function(time) {
+      var m = Math.floor(time / 60);
+      var s = time % 60;
+      if (m < 10) {
+        m = '0' + m;
+      }
+      if (s < 10) {
+        s = '0' + s;
+      }
+      return m + ':' + s;
+    }
+  }
+</wxs>
 
 <navigator url='/pages/home/home' class='movie-item'>
   <view class='photo'>
-    <image class='movie-photo-x' src='../../assets/image/dy-x.jpg'></image>
-    <view class='time'>125:30</view>
+    <image class='movie-photo-x' src='{{item.urlm}}'></image>
+    <view class='time'>{{filter.time(item.playtime)}}</view>
   </view>
 
   <view class='movie-jjie'>
-    <view class='movie-name'>西红柿首富</view>
-    <view class='movie-laiyuan'>Gakki-内 提供</view>
+    <view wx:if='{{!search}}' class='movie-name'>{{item.name}}</view>
+    <view wx:else class='movie-name'>
+      <text 
+        wx:for='{{item.name}}' 
+        wx:key='{{index}}' 
+        class='{{item.a ? "s" : ""}}'>{{item.v}}</text>
+    </view>
+
+    <view class='movie-laiyuan'>{{item.provider}} 提供</view>
   </view>
-</navigator> 
+</navigator>

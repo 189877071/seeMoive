@@ -1,0 +1,20 @@
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.nodata {
+  line-height: 100px;
+  text-align: center;
+  color: #888;
+  font-size: 28rpx;
+}
+
+.bottom {
+  line-height: 22rpx;
+  font-size: 22rpx;
+  text-align: center;
+  color: #888;
+  padding-bottom: 30rpx;
+}

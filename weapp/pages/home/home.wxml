@@ -1,1 +1,2 @@
 <!--pages/home/home.wxml-->
+<video src='https://movie-jsonhappy.oss-cn-beijing.aliyuncs.com/movie/video/demo.mp4?OSSAccessKeyId=LTAIwB2w0DcnO8w8&Expires=1535640038&Signature=4MnuwlAaxynOJ%2FETkC9cI1WDVa4%3D'></video>

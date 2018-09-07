@@ -1,16 +1,16 @@
 <!--pages/mi/mi.wxml-->
 <view class='top-box shadow black'>
    <view class='head-box'>
-    <image src='../../assets/image/head.jpg'></image>
+    <image src='{{photo}}'></image>
    </view>
    <view class='top-right'>
     <view class='name-box'>
-      <text>李林</text>
+      <text>{{name}}</text>
       <navigator url='/pages/label/label' class='editor-icon' >
         <image src='../../assets/image/edit.png'></image>
       </navigator>
     </view>
-    <view class='label'>标签:老司机/暖男/抠脚大汉/小哥哥…</view>
+    <view class='label'>标签:{{label}}</view>
    </view>
 </view>
 

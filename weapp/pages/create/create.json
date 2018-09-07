@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "movie-item": "../../components/MovieItem/index"
+    "movie-item": "../../components/MovieItem/index",
+    "my-login": "../../components/Login/index",
+    "my-load": "../../components/Load/index"
   }
 }
