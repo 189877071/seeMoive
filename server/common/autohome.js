@@ -2,27 +2,18 @@ const mysql = require('./db');
 const sql = require('node-transform-mysql');
 const uuid = require('uuid');
 const oss = require('ali-oss');
-const { tables: { dbhome, dbonline, dbuser, dbmovie }, dev, ossinfor } = require('./config');
-
-const ossStore = oss(ossinfor);
+const { tables: { dbhome, dbonline, dbuser, dbmovie } } = require('./config');
+const { getUrl, log } = require('./fn');
 
 let [users, onlineUser, movieCount, num, rnum, homes] = [[], [], 0, 0, 0, []];
-
 
 // 获取到所有系统创建的用户
 async function getAutoUsers() {
     const users = await mysql(
         sql.table(dbuser).where({ demo: '2' }).field('id').select()
     );
-
-    if (dev) {
-        if (users && users.length) {
-            console.log('获取到了所有人用户数据,数量为：' + users.length);
-        }
-        else {
-            console.log('没有获取到系统创建的用户');
-        }
-    }
+    
+    log((users && users.length) ? `获取到了所有人用户数据,数量为：${users.length}` : '没有获取到系统创建的用户');
 
     return (users && users.length) ? users : [];
 }
@@ -32,15 +23,8 @@ async function getMoiveCount() {
     const count = await mysql(
         sql.count().table(dbmovie).select()
     );
-
-    if (dev) {
-        if (count && count.length && count[0]['COUNT(1)']) {
-            console.log('成功获取到电影数量，总数为：' + count[0]['COUNT(1)'])
-        }
-        else {
-            console.log('获取电影数量失败');
-        }
-    }
+    
+    log((count && count.length && count[0]['COUNT(1)']) ? `成功获取到电影数量，总数为：${count[0]['COUNT(1)']}`: '获取电影数量失败');
 
     return (count && count.length && count[0]['COUNT(1)']) ? count[0]['COUNT(1)'] : 0;
 }
@@ -53,11 +37,9 @@ async function getMovieId() {
     const movie = await mysql(
         sql.table(dbmovie).limit(num, 1).field(['classid', 'id']).select()
     );
-
-    if (dev) {
-        if (!movie || !movie.length) {
-            console.log('获取电影数据失败');
-        }
+    
+    if (!movie || !movie.length) {
+        log('获取电影数据失败');
     }
 
     return (movie && movie.length) ? movie[0] : false;
@@ -69,15 +51,14 @@ async function createChatTable(name) {
     CREATE TABLE ${name} (
         userid VARCHAR(255) NOT NULL,
         content TEXT,
-        type ENUM('1', '2') DEFAULT 1
+        type ENUM('1', '2') DEFAULT 1,
+        time bigint(20) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     `;
     const result = await mysql(sql);
 
-    if (dev) {
-        if (!result) {
-            console.log(`创建${name}表失败`);
-        }
+    if (!result) {
+        log(`创建${name}表失败`);
     }
 }
 
@@ -94,18 +75,14 @@ async function setUserOnLine(userid, homeid) {
 
     const result = await mysql(sqlstr);
 
-    if (dev) {
-        if (!result) {
-            console.log(`添加数据${userid}上线,操作失败`);
-        }
+    if (!result) {
+        log(`添加数据${userid}上线,操作失败`);
     }
 }
 
 // 创建房间
 async function createHome(userid) {
-    if (dev) {
-        console.log('准备创建一个房间，用户id为：' + userid);
-    }
+    log('准备创建一个房间，用户id为：' + userid);
     // 获取电影id
     const movie = await getMovieId();
 
@@ -132,10 +109,8 @@ async function createHome(userid) {
         }).insert()
     );
 
-    if (dev) {
-        if (!homeResult) {
-            console.log('创建房间失败');
-        }
+    if (!homeResult) {
+        log('创建房间失败');
     }
 
     if (!homeResult) {
@@ -151,9 +126,7 @@ async function createHome(userid) {
 
 async function setUserHome() {
     if (!users[num]) {
-        if (dev) {
-            console.log('创建房间操作完毕!')
-        }
+        log('创建房间操作完毕!');
         num = 0;
         return;
     }
@@ -163,9 +136,7 @@ async function setUserHome() {
     num++;
 
     if (onlineUser.includes(id)) {
-        if (dev) {
-            console.log(`用户id:${id}已存在`);
-        }
+        log(`用户id:${id}已存在`);
         await setUserHome();
         return;
     }
@@ -192,14 +163,7 @@ async function deleteHome({ id, chathostroy }) {
         sql.table(dbhome).where({ id }).delet()
     );
 
-    if (dev) {
-        if (!delhomeres) {
-            console.log(`删除房间:${id}失败`);
-        }
-        else {
-            console.log(`成功删除房间${id}`);
-        }
-    }
+    log(!delhomeres ? `删除房间:${id}失败` : `成功删除房间${id}`);
 
     if (!delhomeres) {
         return;
@@ -207,40 +171,28 @@ async function deleteHome({ id, chathostroy }) {
 
     // 删除房间指定的表
     const delchatres = await mysql(`DROP TABLE ${chathostroy}`);
-    if (dev) {
-        if (!delchatres) {
-            console.log(`删除房间${id}对应的聊天表,删除失败`);
-        }
-    }
+    log(`删除房间${id}对应的聊天表,删除失败`);
 
     // 删除此房间内在线表用户
     const delonline = await mysql(
         sql.table(dbonline).where({ homeid: id }).delet()
     );
-    if (dev) {
-        if (!delonline) {
-            console.log('删除在线用户id：${id}失败');
-        }
+    if (!delonline) {
+        log('删除在线用户id：${id}失败');
     }
 
     if (!homeusers.length) {
-        if (dev) {
-            console.log(`${id}房间没有找到在线用户`)
-        }
+        log(`${id}房间没有找到在线用户`);
         return;
     }
 
     const index = onlineUser.indexOf(homeusers[0].userid);
     if (index > -1) {
         const uid = onlineUser.splice(index, 1);
-        if (dev) {
-            console.log(`清除在线id：${uid}`);
-        }
+        log(`清除在线id：${uid}`);
     }
     else {
-        if (dev) {
-            console.log(`没有匹配上用户id${homeusers[0].userid}`);
-        }
+        log(`没有匹配上用户id${homeusers[0].userid}`);
     }
 }
 
@@ -270,18 +222,12 @@ async function getMovie() {
     const movies = await mysql(
         sql.table(dbmovie).field(['coverx', 'coverm', 'coverl', 'id']).select()
     );
-    if (dev) {
-        if (!movies || !movies.length) {
-            console.log('没有获取到电影数据');
-        }
+    if (!movies || !movies.length) {
+        log('没有获取到电影数据');
     }
     return movies || [];
 }
 
-// 获取电影封面地址
-function getUrl(path) {
-    return ossStore.signatureUrl(path, { expires: 3600 }).replace(/^http:/, 'https:');
-}
 
 async function movietihuan({ coverx, coverm, coverl, id }) {
     const result = await mysql(
@@ -291,9 +237,7 @@ async function movietihuan({ coverx, coverm, coverl, id }) {
             urll: getUrl(coverl),
         }).where({ id }).update()
     );
-    if (dev) {
-        console.log(`电影${id}封面修改${result ? '成功' : '失败'}`);
-    }
+    log(`电影${id}封面修改${result ? '成功' : '失败'}`);
 }
 
 // 更改所有电影封面

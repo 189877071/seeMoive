@@ -10,7 +10,7 @@ userphoto
 "爱健身/暖男/失眠星人/声控"
 -->
 
-<navigator  url='/pages/home/home?id=11' class='list-box shadow'>
+<navigator  url='/pages/home/home?id={{homeinfor.id}}&option=get' class='list-box shadow'>
   <!-- 头部 -->
   <view class='list-top black'>
     <view class='head'>

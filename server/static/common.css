@@ -1,0 +1,118 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}body,button,input,select,textarea{font:12px/1.5tahoma,arial;}h1,h2,h3,h4,h5,h6{font-size:100%;}address,cite,dfn,em,var{font-style:normal;}code,kbd,pre,samp{font-family:couriernew,courier,monospace;}small{font-size:12px;}ul,ol{list-style:none;}a{text-decoration:none;}a:hover{text-decoration:underline;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}legend{color:#000;}fieldset,img{border:0;}button,input,select,textarea{font-size:100%;}table{border-collapse:collapse;border-spacing:0;}
+
+.box {
+    width: 1000px;
+    height: 800px;
+    border: 1px solid #ccc;
+    margin: 50px auto;
+    display: flex;
+}
+.users, .homes {
+    flex: 1;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+.content-box {
+    flex: 1;
+    overflow: auto;
+}
+.box h1 {
+    text-align: center;
+    line-height: 50px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-box {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list li {
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+    text-indent: 10px;
+    cursor: pointer;
+}
+.list li.selected {
+    background: #ccc;
+}
+
+.operation {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.infor {
+    display: flex;
+}
+.infor>div {
+    padding-right: 20px;
+    font-size: 14px;
+    line-height: 30px;  
+}
+.send button{
+    width: 40px;
+    cursor: pointer;
+}
+.send span {
+    color: #f00;
+    padding-left: 10px;
+}
+.chat-list li{
+    display: flex;
+    padding: 10px;
+}
+.chat-list li.mi {
+    justify-content: flex-end;
+}
+.chat-list li img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.chat-list li.mi img {
+    order: 2;
+}
+.ct {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 260px;
+    margin-left: 10px;
+}
+.chat-list li.mi .ct {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.name {
+    line-height: 25px;
+}
+.chat-list li.mi .name {
+    text-align: right;
+}
+.content {
+    line-height: 20px;
+    padding: 5px 0;
+}
+.editor-box {
+    height: 80px;
+    padding: 5px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.editor-box textarea {
+    resize: none;
+    width: 300px;
+    height: 60px;
+    padding: 5px;
+}
+.editor-box button {
+    height: 30px;
+    width: 50px;
+}

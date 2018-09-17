@@ -4,10 +4,22 @@ page {
   flex-direction: column;
 }
 
+.video-box {
+  height: 420rpx;
+  box-shadow: 0 0 30rpx rgba(0,0,0,.8);
+  background: #000;
+  position: relative;
+}
+.progress {
+  height: 2px;
+  background: #ae0bea;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
 .video {
   width: 100%;
   height: 420rpx;
-  box-shadow: 0 0 30rpx rgba(0,0,0,.8);
 }
 
 .message {
@@ -35,7 +47,7 @@ page {
   color: #bbb;
 }
 
-.azsh, .el, .er, .reminder {
+.azsh, .el, .er, .reminder, .voice-time, .voice-end {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,6 +57,7 @@ page {
   flex: 1;
   color: #fff;
   font-size: 30rpx;
+  background: none;
 }
 
 .elb, .er {
@@ -171,9 +184,61 @@ page {
 .yy-box{
   display: flex;
   align-items: center;
-  min-width: 150rpx;
 }
 .yy {
-  width: 50rpx;
-  height: 50rpx;
+  width: 38rpx;
+  height: 38rpx;
+}
+.voice {
+  background: #fffff0;
+  padding: 0 10rpx;
+  border-radius: 8rpx;
+  border: 1px solid #ddd;
+}
+
+.voice text {
+  color: #666;
+}
+
+.dwei {
+  position: relative;
+}
+
+.current-voice-box {
+  background: rgba(255,255,255,1);
+  border-top: 1px solid #ccc;
+  width: 750rpx;
+  height: 300rpx;
+  left: -15rpx;
+  bottom: 80rpx;
+  position: absolute;
+}
+.voice-title {
+  display: flex;
+  justify-content: center;
+  color: #716e98;
+  font-size: 36rpx;
+  line-height: 100rpx;
+}
+.voice-time {
+  margin: 0 auto;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: #918eb5;
+  color: #fff;
+  font-size: 50rpx;
+}
+
+.voice-end {
+  height: 300rpx;
+  width: 450rpx;
+  margin: 0 auto;
+}
+.voice-send-btn, .voice-cancel {
+  width: 200rpx;
+}
+.voice-send-btn {
+  background: #716e98;
+  color: #fff;
 }

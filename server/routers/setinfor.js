@@ -2,16 +2,15 @@ const sql = require('node-transform-mysql');
 
 const mysql = require('../common/db');
 
-const { dev, tables: { dbuser } } = require('../common/config');
+const { tables: { dbuser } } = require('../common/config');
+
+const { log } = require('../common/fn');
 
 module.exports = async ctx => {
     const { label } = ctx.request.body;
 
-    if (!ctx.session.login || !ctx.session.login.id || !label) {
-        console.log(ctx.session.login, label)
-        if(dev){
-            console.log('没有登陆或者没有提供label');
-        }
+    if (!label) {
+        log('没有提供label');
         ctx.oerror();
         return;
     }
@@ -24,9 +23,7 @@ module.exports = async ctx => {
     );
 
     if(!result) {
-        if(dev){
-            console.log('修改失败');
-        }
+        log('修改失败');
         ctx.oerror();
         return;
     }

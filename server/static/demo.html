@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="box">
+        <li>玉紫夏</li><li>诗秀兰</li><li>道千凡</li><li>法香洁</li><li>承浩歌</li><li>米博雅</li><li>褚嘉美</li><li>佴夏真</li><li>勤雅辰</li><li>士飞双</li><li>隽端雅</li><li>碧鲁晔晔</li><li>库以晴</li><li>卑建业</li><li>忻初阳</li><li>威梓涵</li><li>九玮奇</li><li>和秀曼</li><li>仇蝶梦</li><li>解彦杉</li><li>前秀雅</li><li>浑子昂</li><li>信锐立</li><li>虎承业</li><li>齐绿蝶</li><li>帅鹤轩</li><li>孟寄风</li><li>毋晋鹏</li><li>斛运浩</li><li>钟离白曼</li><li>綦芸芸</li><li>剑晶辉</li><li>类自强</li><li>京晓楠</li><li>仙曼辞</li><li>赤飞双</li><li>冒怡悦</li><li>匡冰真</li><li>于曼安</li><li>逄亦玉</li><li>潘静秀</li><li>徐映天</li><li>仪怀桃</li><li>称诗柳</li><li>支鸿羲</li><li>令淑哲</li><li>赫永宁</li>
+    </ul>
+    <div class="names"></div>
+</body>
+</html>
+<script>
+    var list = document.querySelector('.box').querySelectorAll('li');
+    var names = document.querySelector('.names');
+    var str = '';
+    for(var i=0; i<list.length; i++) {
+        str += `'${list[i].innerHTML}',`;
+    }
+    names.innerHTML = str;
+    console.log(list.length);
+</script>

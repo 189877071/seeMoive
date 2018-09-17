@@ -1,4 +1,6 @@
 module.exports = {
   _sessionkey: '_sessionid',
-  hostname: 'https://socketv2.jsonhappy.com/api'
+  topurl: 'https://socketv2.jsonhappy.com',
+  hostname: 'https://socketv2.jsonhappy.com/api',
+  socketurl: 'wss://socket.jsonhappy.com'
 }

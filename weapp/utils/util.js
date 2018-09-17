@@ -1,4 +1,4 @@
-const { _sessionkey, hostname} = require('./config.js');
+const { _sessionkey, hostname } = require('./config.js');
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -16,14 +16,13 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const myRequest = (url, data = {}) => new Promise(reslove => {
-  
+let sessionid = '';
 
-  let sessionid = '';
+const myRequest = (url, data = {}) => new Promise(reslove => {
 
   try {
     sessionid = wx.getStorageSync(_sessionkey);
-  } catch (e) {}
+  } catch (e) { }
 
   wx.request({
     url: hostname + url,
@@ -37,7 +36,7 @@ const myRequest = (url, data = {}) => new Promise(reslove => {
       try {
         wx.setStorageSync(_sessionkey, result.data._sessionid);
       }
-      catch(e) {}
+      catch (e) { }
       reslove(result.data || {});
     },
     fail() {
@@ -47,9 +46,38 @@ const myRequest = (url, data = {}) => new Promise(reslove => {
       });
     }
   })
+});
+
+const myUploadFile = (filePath) => new Promise(resolve => {
+  wx.uploadFile({
+    url: hostname + '/upload',
+    filePath: filePath,
+    name: 'voice',
+    header: {
+      'sessionid': sessionid
+    },
+    success: (result) => {
+      let data = {};
+      try {
+        data = JSON.parse(result.data);
+      }
+      catch(e) {}
+      resolve(data);
+    }
+  })
 })
 
+const showToast = (title, icon = 'none', mask = false) => {
+  wx.showToast({
+    title,
+    icon,
+    mask
+  });
+}
+
 module.exports = {
-  formatTime: formatTime,
-  myRequest
+  formatTime,
+  myRequest,
+  showToast,
+  myUploadFile
 }

@@ -1,98 +1,93 @@
-<!--pages/home/home.wxml-->
-<video class='video' poster='../../assets/image/1.jpg' controls='{{false}}' enable-progress-gesture='{{false}}' show-center-play-btn='{{false}}' src='{{src}}' id='myVideo' />
+<wxs module='filter'>
+module.exports = {
+  buweiNumber: function(num) {
+    if(num < 10) return '0' + num;
+    if(num > 99) return '99+';
+    return num;
+  }
+}
+</wxs>
+<view class='video-box'>
+  <video 
+    wx:if='{{videoShow}}'
+    class='video'
+    controls='{{false}}' 
+    enable-progress-gesture='{{false}}' 
+    show-center-play-btn='{{false}}' 
+    src='{{src}}' 
+    id='myVideo'
+    autoplay
+    bindended='playEnd'
+    bindtimeupdate='playTimeUpdate'
+    muted='{{muted}}' 
+    binderror='playError'></video>
+  <view class='progress' style='width: {{progress}}rpx'></view>
+</view>
 
-<scroll-view class='message' scroll-y scroll-into-view='bottom'>
-  
-  <view class='reminder'><view class='reminder-c'>“啦啦啦哈哈哈”进入房间~</view></view>
+<scroll-view class='message' scroll-y scroll-into-view='bottom-{{b}}'>
 
-  <view class='message-list'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
+
+  <view wx:for='{{chats}}' wx:key='{{index}}'>
+
+    <view wx:if='{{item.hint}}' class='reminder'>
+      <view class='reminder-c'>{{item.content}}</view>
     </view>
+    <view wx:else class='message-list {{ item.userid == userid && "mi" }}'>
+      <image class='user-photo' src='{{item.photo}}' />
+      <view class='mjt'></view>
+      <view class='message-content-box'>
+        <text class='user-name'>{{item.name}}</text>
+        <text wx:if='{{item.type=="1"}}' class='message-content'>{{item.content}}</text>
+        <view wx:else class='yy-box voice' data-index='{{index}}' bindtap='playVoice'>
+          <image class='yy' src='../../assets/image/{{item.play ? "vocie-ic-a" : "vocie-ic"}}.png'></image>  
+          <text>"语音消息"</text>
+        </view>
+      </view>
+    </view>
+
   </view>
 
-  <view class='message-list'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
-    </view>
-  </view>
-
-  <view class='message-list'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
-    </view>
-  </view>
-
-  <view class='message-list'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
-    </view>
-  </view>
-
-  <view class='message-list'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
-    </view>
-  </view>
-
-  <view class='message-list mi'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <text class='message-content'>狗子都跑出来了。</text>
-    </view>
-  </view>
-
-  <view class='message-list mi'>
-    <image class='user-photo' src='../../assets/image/head.jpg' />
-    <view class='mjt'></view>
-    <view class='message-content-box'>
-      <text class='user-name'>摸摸摸雨。</text>
-      <view class='yy-box'><image class='yy' src='../../assets/image/miyy-3.png'></image> <text>语音：播放</text></view>
-    </view>
-  </view>
-
-  <view id='bottom' style='height: 10rpx;'></view>
+  <view id='bottom-{{b}}' style='height: 10rpx;'></view>
 </scroll-view>
 
 <view class='editor-box' style='position: {{position}}; bottom: {{bottom}}px; left: 0;'>
   
-  <view wx:if='{{!voice}}' class='elb'>
+  <view wx:if='{{!voiceShow}}' class='elb'>
     <button class='el' data-show='0' bindtap='showVoice'>
       <image class='img' src='../../assets/image/ly.png' />
     </button>
-    <input 
+    <input
+      value='{{inputValue}}' 
       adjust-position='{{false}}' 
       placeholder='为表诚意，亲手打字~' 
       placeholder-class='pinput'
+      bindinput='bindKeyInput'
       bindfocus='inputFocus' 
-      bindblur='inputBlur'/>
+      bindblur='inputBlur'
+      confirm-type='send'
+      bindconfirm='sendMessage'/>
   </view>
 
-  <view wx:else class='elb'>
+  <view wx:else class='elb dwei'>
+    <!-- 正在录音 -->
+    <view wx:if='{{currentVoiceBoxShow}}' class='current-voice-box'>
+      <view wx:if='{{!voiceEnd}}'>
+        <view class='voice-title'>…… 正在录音 ……</view>
+        <view class='voice-time'>{{filter.buweiNumber(voiceTime)}}</view>
+      </view>
+      <view wx:else class='voice-end'>
+        <button class='voice-send-btn' bindtap='sendVoice'>发送</button>
+        <button class='voice-cancel' bindtap='initVoice'>取消</button>
+      </view>
+    </view>
+
     <button class='el' data-show='1' bindtap='showVoice'>
       <image class='img' src='../../assets/image/jp.png' />
     </button>
-    <view class='azsh'>按住 说话</view>
+    <button class='azsh' bindtap='startVoice'>{{!voiceEnd ? '停止 录音' : '开始 录音'}}</button>
   </view>
 
-  <view class='er'>
+  <button class='er' bindtap='sendMessage'>
     <image class='img' src='../../assets/image/send.png' />
-  </view>
+  </button>
 </view>

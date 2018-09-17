@@ -128,8 +128,10 @@ async function sessionTo(ctx, next) {
     await next();
 
     // 如果要返回的不是json呢所以约定必须返回json格式
-    ctx.body._sessionid = oMysqlStore.id;
-
+    if(typeof ctx.body === 'object') {
+        ctx.body._sessionid = oMysqlStore.id;
+    }
+    
     if (oMysqlStore.isNull) {
         if (!ctx.session || !Object.keys(ctx.session).length) {
             return;

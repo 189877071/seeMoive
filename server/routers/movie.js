@@ -2,7 +2,9 @@ const sql = require('node-transform-mysql');
 
 const mysql = require('../common/db');
 
-const { dev, tables: { dbmovie }, moviePageLen } = require('../common/config');
+const { tables: { dbmovie }, moviePageLen } = require('../common/config');
+
+const { log } = require('../common/fn');
 
 async function getdata(page = 0, classify = false, search = '') {
     const where = {};
@@ -17,14 +19,8 @@ async function getdata(page = 0, classify = false, search = '') {
         sql.table(dbmovie).count().where(where).select()
     );
     
-    console.log(sql.table(dbmovie).count().where(where).select());
-
-    console.log(sql.table(dbmovie).where(where).select())
-
     if (!ocount || !ocount.length) {
-        if (dev) {
-            console.log('获取数据长度失败');
-        }
+        log('获取数据长度失败');
         return false;
     }
 
@@ -38,10 +34,8 @@ async function getdata(page = 0, classify = false, search = '') {
         sql.table(dbmovie).where(where).limit(moviePageLen * page, moviePageLen).field(['id', 'name', 'urlm', 'provider', 'playtime']).select()
     );
 
-    if (dev) {
-        if (!results) {
-            console.log('获取数据失败')
-        }
+    if (!results) {
+        log('获取数据失败');
     }
     return { movies: (results && results.length) ? results : [], count };
 }

@@ -1,12 +1,5 @@
 //index.js
-// const io = require('../../assets/weapp.socket.io.js');
-// const socket = io('wss://socket.jsonhappy.com');
-// socket.on('message', data => {
-//   console.log(data);
-// });
-// 在几个页面中需要判断是否登录呢？
-// 首先 index，create， 页面说不需要判断登录的
-// home，label页面需要判断登录
+
 const {
   myRequest
 } = require('../../utils/util.js');
@@ -47,9 +40,6 @@ Page({
   },
 
   init: function() {
-    wx.navigateTo({
-      url: '/pages/home/home?id=11',
-    })
     const {
       login,
       infor: {

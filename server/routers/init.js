@@ -1,17 +1,15 @@
 const sql = require('node-transform-mysql');
 const mysql = require('../common/db');
 const home = require('./home');
-const { dev, tables: { dbclassify, dbuser } } = require('../common/config');
-
+const { tables: { dbclassify, dbuser } } = require('../common/config');
+const { log } = require('../common/fn');
 // 获取分类
 async function getclassify() {
     const results = await mysql(
         sql.table(dbclassify).select()
     );
-    if (dev) {
-        if (!results || !results.length) {
-            console.log('获取分类数据失败');
-        }
+    if (!results || !results.length) {
+        log('获取分类数据失败');
     }
     return (results && results.length) ? results : [];
 }
@@ -21,10 +19,8 @@ async function getUserInfor(id) {
     const result = await mysql(
         sql.table(dbuser).where({ id }).field(['id', 'name', 'photo', 'gender', 'label']).select()
     );
-    if (dev) {
-        if (!result || !result.length) {
-            console.log('获取当前用户数据失败');
-        }
+    if (!result || !result.length) {
+        log('获取当前用户数据失败');
     }
     return (result && result.length) ? result[0] : false;
 }
@@ -33,9 +29,7 @@ async function getUserInfor(id) {
 module.exports = async (ctx) => {
     
     if(!ctx.session.login || !ctx.session.login.id) {
-        if(dev) {
-            console.log('登录没有授权');
-        }
+        log('登录没有授权');
         ctx.oerror();
         return;
     }

@@ -2,11 +2,56 @@ const dgram = require('dgram');
 
 const client = dgram.createSocket('udp4');
 
-const { tables } = require('./config');
+const { tables: { dbonline, dbuser, dbhome } } = require('./config');
+
+const { log } = require('./fn');
 
 const sql = require('node-transform-mysql');
 
 const mysql = require('./db');
+
+// 获取房间所有信息
+const getHomeUsers = async (homeid) => await mysql(
+    sql.table(dbonline).where({ homeid }).field('socketid,udphost,udpport').select()
+);
+
+// 群发
+const massTexting = async (users, message) => {
+    let num = 0;
+
+    const cb = async () => {
+        if(!users[num]) {
+            return;
+        }
+        const { socketid, udphost, udpport } = users[num];
+        num++;
+        await udpsend({
+            data: { 
+                message, 
+                socketid 
+            },
+            host: udphost,
+            port: udpport
+        });
+        await cb();
+    }
+
+    await cb();
+}
+
+// 群发模版
+const massTextingTemplate = async (homeid, message, logstr) => {
+    const users = await getHomeUsers(homeid);
+    if(!users || !users.length) {
+        if(!users) {
+            log(logstr);
+            return true; // 如果查询出错了，防止删除该房间
+        }
+        return false;
+    }
+    await massTexting(users, message);
+    return true;
+}
 
 // 推送消息
 const udpsend = ({ data, host, port }) => new Promise((reslove, reject) => {
@@ -19,22 +64,30 @@ const udpsend = ({ data, host, port }) => new Promise((reslove, reject) => {
     }
 });
 
-// 群发消息
-const udpsends = async (message) => {
-    // 获取到所有在线用户
-    const onLineUsers = await mysql(sql.table(dblogin).select());
-
-    if (onLineUsers && onLineUsers.length) {
-        // 推送消息 有人离线了
-        onLineUsers.forEach(item => udpsend({
-            data: { socketid: item.socketid, message },
-            host: item.udphost,
-            port: item.udpport
-        }));
+// 离线通知
+const udpExitSend = async (homeid, name) => {
+    const userTo = await massTextingTemplate(homeid, { controller: 'userexit', name }, '离线通知 获取当前房间用户失败');
+    if(userTo) {
+        return;
+    }
+    const deletResult = await mysql(sql.table(dbhome).where({ id: homeid }).delet());
+    if(!deletResult) {
+        log('删除房间失败');
     }
 }
 
-const exit = async (msg) => {
+// 上线通知
+const udpOnlineSend = async (homeid, name, userid) => {
+    await massTextingTemplate(homeid, { controller: 'online', name, userid }, '上线通知，获取房间用户数据失败');
+}
+
+// 给房间所有人推送消息
+const udpHoemSend = async (homeid,message) => {
+    await massTextingTemplate(homeid, { controller: 'message', ...message }, '消息推送，获取房间用户数据失败');
+}
+
+// 退出
+const udpexit = async (msg) => {
     let data = null;
 
     try {
@@ -49,32 +102,41 @@ const exit = async (msg) => {
     if (!socketid) return;
 
     // 先判断socketid是否存在
-    const loginResult = await mysql(sql.table(dblogin).where({ socketid }).select());
+    const isOnLine = await mysql(sql.table(dbonline).where({ socketid }).select());
 
-    if (!loginResult || !loginResult.length) {
-        return true;
+    if (!isOnLine || !isOnLine.length) {
+        return;
     }
-
-    let userid = loginResult[0].userid;
-
+    
     // 删除用户登录数据
-    await mysql(sql.table(dblogin).where({ socketid }).delet());
+    await mysql(sql.table(dbonline).where({ socketid }).delet());
 
-    // 判断用户是否还有登录
-    const isLogin = await mysql(sql.table(dblogin).where({ userid }).select())
-
-    if (!isLogin || !isLogin.length) {
-        // 推送所有在线用户有人下线了
-        await udpsends({ controller: 'userexit', userid });
+    // 获取用户信息
+    const user = await mysql(
+        sql.table(dbuser).where({ id: isOnLine[0].userid }).field('name').select()
+    );
+    
+    if(!user || !user.length) {
+        log('用户退出,获取用户数据失败');
+        return;
     }
+
+    // 通知他们当前用户下线了
+    await udpExitSend(isOnLine[0].homeid, user[0].name);
+
+    
 
     return true;
 }
 
-exports.udpsend = udpsend;
+client.on('message', udpexit);
 
-exports.udpsends = udpsends;
-
-exports.udpexit = exit;
-
-client.on('message', exit);
+module.exports = async (ctx, next) => {
+    ctx.oerror = (error = 0) => ctx.body = ({ error, success: false });
+    ctx.udpsend = udpsend;
+    ctx.udpexit = udpexit;
+    ctx.udpOnlineSend = udpOnlineSend;
+    ctx.udpExitSend = udpExitSend;
+    ctx.udpHoemSend = udpHoemSend;
+    await next();
+}

@@ -11,8 +11,6 @@ App({
         myRequest('/login', {
           code: res.code
         }).then(result => {
-          console.log(result);
-
           const {
             success,
             classify,

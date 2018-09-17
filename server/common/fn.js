@@ -1,6 +1,14 @@
 const https = require('https');
 
-const { appid, secret } = require('./config');
+const oss = require('ali-oss');
+
+const { appid, secret, ossinfor, dev } = require('./config');
+
+const ossStore = oss(ossinfor);
+// 获取电影封面地址
+exports.getUrl =  function (path) {
+    return ossStore.signatureUrl(path, { expires: 3600 }).replace(/^http:/, 'https:');
+}
 
 exports.getUserInfor = async function (code) {
     const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
@@ -30,4 +38,11 @@ exports.getUserInfor = async function (code) {
                 resolve(false);
             });
     })
+}
+
+
+exports.log = (str) => {
+    if(dev) {
+        console.log(str);
+    }
 }
