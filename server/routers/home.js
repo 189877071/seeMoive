@@ -1,5 +1,6 @@
 // 获取房间数据
 const sql = require('node-transform-mysql');
+const uuid = require('uuid');
 const mysql = require('../common/db');
 const { getUrl, log } = require('../common/fn');
 const { tables: { dbhome, dbonline, dbmovie, dbuser }, homePageLen } = require('../common/config');
@@ -116,7 +117,7 @@ async function getHome(id) {
         ${dbmovie}.name as name,
         ${dbmovie}.file as file,
         ${dbhome}.userid as hostid, 
-        movieid, chathostroy, time
+        movieid, chathostroy, time, pv
         FROM ${dbhome}, ${dbmovie}
         WHERE ${dbhome}.movieid=${dbmovie}.id AND ${dbhome}.id='${id}'
     `);
@@ -130,6 +131,25 @@ async function getHome(id) {
 
     return home[0];
 }
+
+// 创建房间相关联的房间表
+async function createChatTable(name) {
+    const sql = `
+    CREATE TABLE ${name} (
+        userid VARCHAR(255) NOT NULL,
+        content TEXT,
+        type ENUM('1', '2') DEFAULT 1,
+        time bigint(20) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `;
+    const result = await mysql(sql);
+
+    if (!result) {
+        log(`创建${name}表失败`);
+    }
+    return !!result;
+}
+
 
 module.exports = async (ctx) => {
 
@@ -159,11 +179,12 @@ module.exports = async (ctx) => {
 
     const userid = ctx.session.login.id;
 
+    if (!id || !socketid || !udphost || !udpport) {
+        ctx.oerror();
+        return;
+    }
+    // 获取房间
     const gethome = async () => {
-        if (!id || !socketid || !udphost || !udpport) {
-            ctx.oerror();
-            return;
-        }
         // 获取用户名
         const name = await getUserName(userid);
         // 获取房间信息
@@ -184,7 +205,13 @@ module.exports = async (ctx) => {
         });
         // 推送消息有人上线了
         await ctx.udpOnlineSend(id, name, userid);
-        
+        // 访问量+1；
+        const rePv = await mysql(
+            sql.table(dbhome).where({ id }).data({ pv: ++home['pv'] }).update()
+        );
+        if(!rePv) {
+            log('增加访问量失败');
+        }
         ctx.body = { success: true, home, chats, userinfor: { username: name, userid } };
     }
 
@@ -238,12 +265,61 @@ module.exports = async (ctx) => {
         ctx.body = { success: true };
     }
 
+    // 创建房间
+    const sethome = async () => {
+        // 判断 电影是否存在
+        const movie = await mysql(
+            sql.table(dbmovie).where({ id }).select()
+        );
+        if(!movie || !movie.length) {
+            log(`${id}电影不存在`);
+            ctx.oerror();
+            return;
+        }
+        // 为房间id
+        const homeid = uuid();
+        // 聊天表名称
+        const chathostroy = `movie_chat_${uuid().replace(/-/g, '')}`;
+        // 添加房间
+        const homeResult = await mysql(
+            sql.table(dbhome).data({
+                id: homeid,
+                userid,
+                movieid: id,
+                classify: movie[0]['classid'],
+                auto: '1',
+                time: Date.now(),
+                chathostroy,
+                pv: 0,
+                praise: 0
+            }).insert()
+        );
+        if (!homeResult) {
+            log('创建房间失败');
+            ctx.oerror();
+            return;
+        }
+        // 创建聊天表
+        const isok = await createChatTable(chathostroy);
+        if(!isok) {
+            ctx.oerror();
+            return;
+        }
+
+        id = homeid;
+
+        await gethome();
+    }
+
     switch(option) {
         case 'get':
             await gethome();
             break;
         case 'message':
             await message();
+            break;
+        case 'set':
+            await sethome();
             break;
     }
 }

@@ -14,7 +14,7 @@
   }
 </wxs>
 
-<navigator url='/pages/home/home' class='movie-item'>
+<navigator url='/pages/home/home?id={{item.id}}&option=set' class='movie-item'>
   <view class='photo'>
     <image class='movie-photo-x' src='{{item.urlm}}'></image>
     <view class='time'>{{filter.time(item.playtime)}}</view>

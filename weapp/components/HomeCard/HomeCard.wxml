@@ -1,15 +1,3 @@
-<!-- 
-id:"0d4a1669-69b2-46d6-b01b-f3c378c29277"
-movieid:"87d9d737-9654-4bb2-9706-4a3a19f4040d"
-moviename:"僵尸至尊"
-moviephoto:"movie/image/10x.jpg"
-userid:"a6de2eaa-d92c-43b1-8628-faf86afa5c9a"
-userlabel:"内向"
-username:"始海瑶"
-userphoto
-"爱健身/暖男/失眠星人/声控"
--->
-
 <navigator  url='/pages/home/home?id={{homeinfor.id}}&option=get' class='list-box shadow'>
   <!-- 头部 -->
   <view class='list-top black'>

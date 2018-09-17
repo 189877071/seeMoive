@@ -111,9 +111,6 @@ async function createHome(userid) {
 
     if (!homeResult) {
         log('创建房间失败');
-    }
-
-    if (!homeResult) {
         return;
     }
 
