@@ -1,4 +1,5 @@
 // components/HomeCard/HomeCard.js
+const { myRequest, showToast } = require('../../utils/util.js');
 Component({
   /**
    * 组件的属性列表
@@ -9,7 +10,8 @@ Component({
 
   attached() {
     this.setData({
-      userlabel: this.getArr(this.properties.homeinfor.userlabel)
+      userlabel: this.getArr(this.properties.homeinfor.userlabel),
+      praise: this.properties.homeinfor.praise
     });
   },
 
@@ -17,7 +19,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    userlabel: []
+    userlabel: [],
+    praise: 0
   },
 
   /**
@@ -26,6 +29,20 @@ Component({
   methods: {
     getArr(str) {
       return str.split('/');
+    },
+    // 点赞
+    like(event) {
+      const id = event.currentTarget.dataset.id;
+      if(!id) return;
+      myRequest('/home', { option: 'like', id }).then(({success}) => {
+        if(!success) {
+          showToast('操作失败');
+          return;
+        }
+        this.setData({
+          praise: ++this.data.praise
+        })
+      })
     }
   },
 

@@ -1,2 +1,0 @@
-<!--pages/userinfor/userinfor.wxml-->
-<button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">允许授权</button> 

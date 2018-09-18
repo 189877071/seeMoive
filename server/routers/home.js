@@ -68,13 +68,13 @@ async function getUsers(homeid) {
 // 获取用户名称
 async function getUserName(id) {
     const user = await mysql(
-        sql.table(dbuser).where({ id }).field('name').select()
+        sql.table(dbuser).where({ id }).field(['name', 'history']).select()
     );
 
     if (!user || !user.length) {
         log('获取用户信息失败');
     }
-    return user ? user[0].name : false;
+    return user ? user[0] : false;
 }
 
 // 储存socket信息
@@ -117,6 +117,7 @@ async function getHome(id) {
         ${dbmovie}.name as name,
         ${dbmovie}.file as file,
         ${dbhome}.userid as hostid, 
+        ${dbmovie}.urlx as photo,
         movieid, chathostroy, time, pv
         FROM ${dbhome}, ${dbmovie}
         WHERE ${dbhome}.movieid=${dbmovie}.id AND ${dbhome}.id='${id}'
@@ -179,22 +180,24 @@ module.exports = async (ctx) => {
 
     const userid = ctx.session.login.id;
 
-    if (!id || !socketid || !udphost || !udpport) {
-        ctx.oerror();
-        return;
-    }
+    
     // 获取房间
     const gethome = async () => {
+        if (!id || !socketid || !udphost || !udpport) {
+            ctx.oerror();
+            return;
+        }
         // 获取用户名
-        const name = await getUserName(userid);
+        const nameData = await getUserName(userid);
         // 获取房间信息
         const home = await getHome(id);
         // 储存socket信息
         const onoff = await setSocket(socketid, udphost, udpport, userid, id);
-        if (!home || !name || !onoff) {
+        if (!home || !nameData || !onoff) {
             ctx.oerror();
             return;
         }
+        let { name, history } = nameData;
         // 获取聊天信息
         const chats = await getChat(home['chathostroy']);
         // socket初始化
@@ -211,6 +214,21 @@ module.exports = async (ctx) => {
         );
         if(!rePv) {
             log('增加访问量失败');
+        }
+        // 添加访问历史
+        history = history ? history.split('||||') : [];
+        
+        history.unshift(JSON.stringify({ movieid: home.movieid, homeid: home.id }));
+
+        // 最多保存30个记录
+        if(history.length > 30) {
+            history.length = 30;
+        }
+        const setHistory = await mysql(
+            sql.table(dbuser).where({ id: userid }).data({ history: history.join('||||') }).update()
+        );
+        if(!history) {
+            log('修改观影历史失败');
         }
         ctx.body = { success: true, home, chats, userinfor: { username: name, userid } };
     }
@@ -267,6 +285,10 @@ module.exports = async (ctx) => {
 
     // 创建房间
     const sethome = async () => {
+        if (!id || !socketid || !udphost || !udpport) {
+            ctx.oerror();
+            return;
+        }
         // 判断 电影是否存在
         const movie = await mysql(
             sql.table(dbmovie).where({ id }).select()
@@ -311,6 +333,34 @@ module.exports = async (ctx) => {
         await gethome();
     }
 
+    // 点赞
+    const praise = async () => {
+        if(!id) {
+            log('缺少id参数');
+            ctx.oerror();
+            return;
+        }
+        // 获取房间信息
+        const homeInfor = await mysql(
+            sql.table(dbhome).where({ id }).field('praise').select()
+        );
+        if(!homeInfor || !homeInfor.length) {
+            log('没有找到房间');
+            ctx.oerror();
+            return;
+        }
+        // 增加点赞数
+        const result = await mysql(
+            sql.table(dbhome).data({ praise: ++homeInfor[0].praise }).where({ id}).update()
+        );
+        if(!result) {
+            log('修改点赞失败');
+            ctx.oerror();
+            return;
+        }
+        ctx.body = { success: true };
+    }
+
     switch(option) {
         case 'get':
             await gethome();
@@ -320,6 +370,9 @@ module.exports = async (ctx) => {
             break;
         case 'set':
             await sethome();
+            break;
+        case 'like':
+            await praise();
             break;
     }
 }

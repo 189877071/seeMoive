@@ -7,7 +7,7 @@ const { appid, secret, ossinfor, dev } = require('./config');
 const ossStore = oss(ossinfor);
 // 获取电影封面地址
 exports.getUrl =  function (path) {
-    return ossStore.signatureUrl(path, { expires: 3600 }).replace(/^http:/, 'https:');
+    return ossStore.signatureUrl(path, { expires: 86400 }).replace(/^http:/, 'https:');
 }
 
 exports.getUserInfor = async function (code) {

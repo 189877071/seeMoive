@@ -10,7 +10,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    shareId: String
   },
 
   /**
@@ -60,9 +60,11 @@ Component({
                 duration: 2000,
                 mask: true
               });
+              
               this.setData({
                 send: false
               });
+              
             }
           })
         }

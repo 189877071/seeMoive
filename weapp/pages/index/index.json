@@ -4,5 +4,6 @@
     "my-login": "../../components/Login/index",
     "my-load": "../../components/Load/index"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "观影聊天室"
 }

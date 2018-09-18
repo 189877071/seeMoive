@@ -23,6 +23,7 @@ Page({
     currentVoiceBoxShow: false,
     voiceEnd: true,
     voiceTime: 0,
+    photo: ''
   },
 
   duration: 0,
@@ -39,8 +40,8 @@ Page({
       setTimeout(() => wx.navigateBack(), 1000);
       return;
     }
-
-    const { file, id, movieid, name, time, hostid } = home;
+    
+    const { file, id, movieid, name, time, hostid, photo } = home;
 
     const ochats = [].concat(chats, [{ hint: true, content: `“${username}”进入房间~` }]);
 
@@ -55,9 +56,10 @@ Page({
       chats: ochats,
       b: this.data.b + 1,
       videoShow: true,
-      muted: false
+      muted: false,
+      photo
     });
-
+    wx.setNavigationBarTitle({ title: `正在观看：${name}`});
     this.isInit = true;
 
     setTimeout(() => {
@@ -219,14 +221,6 @@ Page({
   },
   // 切换输入/语音
   showVoice(event) {
-    /**
-     * voiceShow 切换 键盘与语音
-     * currentVoiceBoxShow 路由提示操作
-     * voiceEnd 路由是否完成
-     * voiceTime 录音时间
-     * muted 是否静音
-     * 如果显示 路由提示框时 不能切换回 键盘状态
-     * */ 
 
     if (this.data.currentVoiceBoxShow) {
       return;
@@ -373,6 +367,14 @@ Page({
     }
     else {
       this.playVoiceIndex = -1;
+    }
+  },
+  // 分享
+  onShareAppMessage(res) {
+    return {
+      title: `正在观看：${this.data.name}`,
+      path: `/pages/index/index?id=${this.id}&source=share`,
+      imageUrl: this.data.photo
     }
   }
 })

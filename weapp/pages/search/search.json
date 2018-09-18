@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "movie-item": "../../components/MovieItem/index"
-  }
+  },
+  "navigationBarTitleText": "搜索"
 }

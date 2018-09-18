@@ -14,11 +14,11 @@
    </view>
 </view>
 
-<navigator url='/pages/history/history' class='list'>
+<!-- <navigator url='/pages/history/history' class='list'>
   <image class='img-left' src='../../assets/image/time.png'></image>
   <text>最近访问</text>
   <image class='img-right' src='../../assets/image/jt.png'></image>
-</navigator>
+</navigator> -->
 
 <navigator url='/pages/jieshao/jieshao' class='list'>
   <image class='img-left' src='../../assets/image/gywm.png'></image>

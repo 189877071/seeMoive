@@ -20,7 +20,8 @@ Page({
     load: false,
     homes: [],
     navPosition: false,
-    isFinish: false
+    isFinish: false,
+    shareId: ''
   },
 
   count: 0,
@@ -29,7 +30,12 @@ Page({
 
   navPosition: false,
 
-  onLoad: function() {
+  onLoad: function (options) {
+    const { source, id } = options;
+    // 判断是否为分享来源
+    if (source === 'share' && id) {
+      this.setData({ shareId: id});
+    }
     // 初始化回调
     app.appinitcallback = () => this.init();
 
@@ -64,7 +70,12 @@ Page({
 
     this.count = count;
 
-    if (login && !label) {
+    if(login && this.data.shareId) {
+      wx.navigateTo({
+        url: `/pages/home/home?id=${this.data.shareId}&option=get`,
+      });
+    }
+    else if (login && !label) {
       wx.navigateTo({
         url: '/pages/label/label',
       })

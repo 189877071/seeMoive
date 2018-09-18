@@ -3,5 +3,6 @@
     "movie-item": "../../components/MovieItem/index",
     "my-login": "../../components/Login/index",
     "my-load": "../../components/Load/index"
-  }
+  },
+  "navigationBarTitleText": "创建房间"
 }

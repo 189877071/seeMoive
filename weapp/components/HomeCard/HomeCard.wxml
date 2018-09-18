@@ -7,9 +7,9 @@
     <view class='title-box'>
       <view class='title-top'>
         <view class='title'>{{homeinfor.username}}</view>
-        <view class='title-right'>
+        <view class='title-right' catchtap='like' data-id='{{homeinfor.id}}'>
           <image src='../../assets/image/xin.png'></image>
-          <text>{{homeinfor.praise}}</text>
+          <text>{{praise}}</text>
         </view>
       </view>
       <view class='label-list'>
