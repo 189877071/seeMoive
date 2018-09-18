@@ -21,7 +21,7 @@ module.exports = {
     bindtimeupdate='playTimeUpdate'
     muted='{{muted}}' 
     binderror='playError'></video>
-  <view class='progress' style='width: {{progress}}rpx'></view>
+  <view class='progress' style='width: {{progress + "rpx"}}'></view>
 </view>
 
 <scroll-view class='message' scroll-y scroll-into-view='bottom-{{b}}'>

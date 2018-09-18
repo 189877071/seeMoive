@@ -5,13 +5,13 @@ page {
 }
 
 .video-box {
-  height: 420rpx;
+  height: 425rpx;
   box-shadow: 0 0 30rpx rgba(0,0,0,.8);
   background: #000;
   position: relative;
 }
 .progress {
-  height: 2px;
+  height: 5rpx;
   background: #ae0bea;
   bottom: 0;
   left: 0;

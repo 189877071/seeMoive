@@ -16,8 +16,8 @@
   <view class='item-box'>
     <view class='title'>github地址:</view>
     <view class='content'>
-      <text>https://github.com/189877071/webckat-moblie</text>
-      <view class='copy'>复制</view>
+      <text>{{url}}</text>
+      <view class='copy' bindtap='copy'>复制</view>
     </view>
   </view>
 </view>

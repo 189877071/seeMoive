@@ -20,6 +20,7 @@
 <view class='scroll'>
   <view style='height: 30rpx;'></view>
   <home-card wx:for="{{homes}}" wx:key="{{index}}" homeinfor="{{item}}"></home-card>
+  <view class='nodata' wx:if='{{!homes.length}}'>没有数据</view>
 </view>
 
 <view class='bottom' wx:if='{{!isFinish}}'>正在加载</view>

@@ -15,7 +15,7 @@ module.exports = {
         dbmovie: 'movie_list',
         dbclassify: 'movie_classify'
     },
-    dev: true,
+    dev: false,
     expires: 24 * 60 * 60 * 1000,
     ossinfor: {
         accessKeyId: 'LTAIbvYMwsongyJ1',

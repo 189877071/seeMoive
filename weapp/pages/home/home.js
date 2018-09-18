@@ -104,9 +104,7 @@ Page({
     this.duration = duration;
     if (currentTime > this.currentTime) {
       this.currentTime = currentTime;
-      this.setData({
-        progress: currentTime / duration * 750
-      });
+      this.setData({ progress: currentTime / duration * 750 });
     }
   },
 
