@@ -70,36 +70,26 @@ Page({
 
   // 播放完毕
   playEnd() {
-
-    this.setData({
-      videoShow: false
-    });
-
+    // 先删除当前 voide 标签
+    this.setData({videoShow: false});
+    // 判断是否真的播放完毕
     if (this.duration - this.currentTime < 30) {
       showToast('以播放完毕~');
       return;
     }
-
-    setTimeout(() => {
-      this.setData({
-        videoShow: true
+    // 如果没有播放完毕 再渲染一个新的 voide 标签
+    wx.nextTick(() => {
+      this.setData({ videoShow: true });
+      // 然后再把播放进度拖到当前播放时间段
+      wx.nextTick(() => {
+        this.videoContext = wx.createVideoContext('myVideo');
+        this.videoContext.seek(this.currentTime);
       });
-    }, 30);
-
-    setTimeout(() => {
-      this.videoContext = wx.createVideoContext('myVideo');
-      this.videoContext.seek(this.currentTime);
-    }, 500);
+    });
   },
-
-  // 播放出错
-  playError() {
-    showToast('播放出错');
-  },
-  
   currentTime: 0,
   duration: 0,
-  // 播放中
+  // 播放中 监听播放进度
   playTimeUpdate({ detail: { duration, currentTime } }) {
     this.duration = duration;
     if (currentTime > this.currentTime) {
@@ -108,6 +98,11 @@ Page({
     }
   },
 
+  // 播放出错
+  playError() {
+    showToast('播放出错');
+  },
+  
   controller: {
     init(data) {
       const { infor: { socketid, udphost, udpport } } = data;
