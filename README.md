@@ -21,13 +21,13 @@
 
 `git clone git@github.com:189877071/seeMoive.git`
 
-`把 server 文件上传到文件夹`
+`把 server 文件夹上传到服务器`
 
 `下载sql表：https://socketv2.jsonhappy.com/jietu/sql.txt`
 
-`根据sql表创建好数据库`
+`根据sql.txt文件创建好相应的数据库表`
 
-`websocket通信部分，在小程序设置 “websocket.jsonhappy.com”，你需要开启服务器所有端口才能通信`
+`websocket通信部分，在微信公众号平台设置socket域名 “websocket.jsonhappy.com”，你需要开启服务器所有端口才能通信`
 
 `你也可以通过“https://github.com/189877071/webckat-moblie/blob/master/server/socket/start.js”自己实现，如果不懂可以联系我 qq 189877071`
 
