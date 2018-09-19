@@ -20,25 +20,31 @@
 `你也可以通过“https://github.com/189877071/webckat-moblie/blob/master/server/socket/start.js”自己实现，如果不懂可以联系我 qq 189877071`
 
 # 首页
+
 ![首页](https://socketv2.jsonhappy.com/jietu/index.jpg "首页")
 
 # 创建房间
 ![创建房间](https://socketv2.jsonhappy.com/jietu/create.jpg "创建房间")
 
 # 搜索
+
 ![搜索](https://socketv2.jsonhappy.com/jietu/search.jpg "搜索")
 
 # 我
+
 ![我](https://socketv2.jsonhappy.com/jietu/mi.jpg "我")
 
 
 # 我的标签
+
 ![我的标签](https://socketv2.jsonhappy.com/jietu/label.jpg "我的标签")
 
 # 介绍
+
 ![介绍](https://socketv2.jsonhappy.com/jietu/js.jpg "介绍")
 
-#房间聊天室
+# 房间聊天室
+
 ![房间聊天室](https://socketv2.jsonhappy.com/jietu/home.jpg "房间聊天室")
 
 ![审核结果](https://socketv2.jsonhappy.com/jietu/tz.jpg "审核结果")
